@@ -4,14 +4,18 @@ const authorModel = require("../models/authorModel");
 const createAuthor = async (req, res) => {
   try {
     let data = req.body;
+    const {fname, lname} = data;
 
-    email = email.toLowerCase(); //if user send Email in uppercase so by using toLowerCase it convert auto lower case
-    let checkEmail = await authorModel.findOne({ email: email });
-    if (checkEmail) {
-      return res
-        .status(400)
-        .send({ status: false, msg: `this email ${email} is already exist` });
+    if(!fname){
+      res.send("Fname is required");
     }
+    // email = email.toLowerCase(); //if user send Email in uppercase so by using toLowerCase it convert auto lower case
+    // let checkEmail = await authorModel.findOne({ email: email });
+    // if (checkEmail) {
+    //   return res
+    //     .status(400)
+    //     .send({ status: false, msg: `this email ${email} is already exist` });
+    // }
 
     let createData = await authorModel.create(data);
     return res.status(201).send({
