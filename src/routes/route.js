@@ -9,6 +9,7 @@ let { createBlog, getBlogs, updateBlog, deleteBlog, deleteByQuery } =
 
 // ======> Author APIs <==========
 router.post("/authors", createAuthor);
+router.post("/login", loginAuthor);
 
 // ======> Blog APIs <===========
 router.post("/blogs", createBlog);
