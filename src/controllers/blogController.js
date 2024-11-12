@@ -125,11 +125,11 @@ const deleteByQuery = async (req, res) => {
     let filter = { isDeleted: false };
 
     if (category || category == "") {
-      if (!isEmpty(category)) {
-        return res
-          .status(400)
-          .send({ status: false, msg: "category must be present" });
-      }
+      // if (!isEmpty(category)) {
+      //   return res
+      //     .status(400)
+      //     .send({ status: false, msg: "category must be present" });
+      // }
       filter.category = category;
     }
 

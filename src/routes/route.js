@@ -2,23 +2,32 @@ const express = require("express");
 const router = express.Router();
 const authorController = require("../controllers/authorController");
 const blogController = require("../controllers/blogController");
+const middleware = require("../middleware/auth");
 
 let { createAuthor, loginAuthor } = authorController;
 let { createBlog, getBlogs, updateBlog, deleteBlog, deleteByQuery } =
   blogController;
+let { authenticate, authorize, authorizeByQuery } = middleware;
 
-// ======> Author APIs <==========
+// ======> Create Author Api <=========
 router.post("/authors", createAuthor);
 
-// ======> Blog APIs <===========
-router.post("/blogs", createBlog);
+// ======> Author Login Api <==========
+router.post("/login", loginAuthor);
 
-router.get("/blogs", getBlogs);
+// ======> Create Blog Api <===========
+router.post("/blogs", authenticate, createBlog);
 
-router.put("/blogs/:blogId", updateBlog);
+// ======> Create Blog Api <===========
+router.get("/blogs", authenticate, getBlogs);
 
-router.delete("/blogs/:blogId", deleteBlog);
+// ======> Update Blogs Api <==========
+router.put("/blogs/:blogId", authenticate, authorize, updateBlog);
 
-router.delete("/blogs", deleteByQuery);
+// ======> Delete Blogs Api <==========
+router.delete("/blogs/:blogId", authenticate, authorize, deleteBlog);
+
+// ======> Delete Blogs By Query Params <=======
+router.delete("/blogs", authenticate, authorizeByQuery, deleteByQuery);
 
 module.exports = router;
